@@ -1,0 +1,13 @@
+{
+  "name": "qingtu-miniapp",
+  "version": "0.1.0",
+  "description": "轻图 — 原生微信小程序（压缩 / 横向拼接）",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "",
+  "devDependencies": {
+    "miniprogram-api-typings": "^2.8.3-1",
+    "typescript": "^7.0.2"
+  }
+}

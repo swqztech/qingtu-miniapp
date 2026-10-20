@@ -1,0 +1,101 @@
+<view class="page">
+  <scroll-view class="page-scroll" scroll-y enhanced show-scrollbar="{{false}}">
+    <view class="hero">
+      <text class="brand">轻图</text>
+      <text class="tagline">把体积压下去，细节留住</text>
+      <text class="hint">本地处理 · 不上传 · PNG / JPG</text>
+    </view>
+
+    <view class="seg">
+      <view
+        class="seg-item {{compressTab ? 'seg-item-active' : ''}}"
+        bindtap="onTabCompress"
+      >
+        <text>压缩</text>
+      </view>
+      <view
+        class="seg-item {{compressTab ? '' : 'seg-item-active'}}"
+        bindtap="onTabStitch"
+      >
+        <text>拼接</text>
+      </view>
+    </view>
+
+    <view class="pick-card">
+      <text class="pick-status {{files.length ? 'pick-status-has' : ''}}">
+        {{files.length ? '已选择 ' + files.length + ' 张图片' : '从相册或相机添加图片'}}
+      </text>
+      <view
+        class="btn-orange {{busy ? 'btn-orange-disabled' : ''}}"
+        bindtap="onPickImages"
+      >
+        <text>选择图片</text>
+      </view>
+    </view>
+
+    <view class="file-panel" wx:if="{{files.length}}">
+      <view class="file-row" wx:for="{{files}}" wx:key="path">
+        <text>{{item.name}}</text>
+      </view>
+    </view>
+
+    <block wx:if="{{compressTab}}">
+      <view class="settings">
+        <text class="settings-title">压缩质量</text>
+        <view class="quality-box">
+          <view class="step-btn" bindtap="onQualityMinus"><text>-</text></view>
+          <text class="quality-value">{{quality}}</text>
+          <view class="step-btn" bindtap="onQualityPlus"><text>+</text></view>
+        </view>
+        <text class="settings-title">输出格式</text>
+        <view class="chips">
+          <view
+            class="chip {{format === 'keep' ? 'chip-active' : ''}}"
+            data-format="keep"
+            bindtap="onFormatTap"
+          >
+            <text>保持原格式</text>
+          </view>
+          <view
+            class="chip {{format === 'jpeg' ? 'chip-active' : ''}}"
+            data-format="jpeg"
+            bindtap="onFormatTap"
+          >
+            <text>JPEG</text>
+          </view>
+          <view
+            class="chip {{format === 'png' ? 'chip-active' : ''}}"
+            data-format="png"
+            bindtap="onFormatTap"
+          >
+            <text>PNG</text>
+          </view>
+        </view>
+      </view>
+    </block>
+    <block wx:else>
+      <text class="stitch-tip">
+        按当前列表顺序横向拼接，高度对齐最短边，输出 PNG 并保存到相册。
+      </text>
+    </block>
+
+    <text class="log {{log ? '' : 'log-empty'}}" wx:if="{{log}}">{{log}}</text>
+    <text class="log log-empty" wx:else>处理结果将显示在这里</text>
+
+    <view class="page-bottom-spacer"></view>
+  </scroll-view>
+
+  <view class="footer">
+    <view
+      class="btn-orange footer-main {{busy ? 'btn-orange-disabled' : ''}}"
+      bindtap="onRunJob"
+    >
+      <text>{{runLabel}}</text>
+    </view>
+    <view class="btn-ghost" bindtap="onClear">
+      <text>清空</text>
+    </view>
+  </view>
+
+  <canvas type="2d" id="stitchCanvas" class="hidden-canvas"></canvas>
+</view>

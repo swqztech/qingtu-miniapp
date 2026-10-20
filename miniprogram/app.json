@@ -1,0 +1,11 @@
+{
+  "pages": ["pages/index/index"],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "轻图",
+    "navigationBarBackgroundColor": "#E6FAF6",
+    "backgroundColor": "#F0FDFA"
+  },
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents"
+}
